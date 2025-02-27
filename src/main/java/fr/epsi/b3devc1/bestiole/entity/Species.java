@@ -11,13 +11,27 @@ public class Species {
     private String commonName;
     private String latinName;
 
-    // Getters & Setters
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
+    public Integer getId() {
+        return id;
+    }
 
-    public String getCommonName() { return commonName; }
-    public void setCommonName(String commonName) { this.commonName = commonName; }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public String getLatinName() { return latinName; }
-    public void setLatinName(String latinName) { this.latinName = latinName; }
+    public String getCommonName() {
+        return commonName;
+    }
+
+    public void setCommonName(String commonName) {
+        this.commonName = commonName;
+    }
+
+    public String getLatinName() {
+        return latinName;
+    }
+
+    public void setLatinName(String latinName) {
+        this.latinName = latinName;
+    }
 }
