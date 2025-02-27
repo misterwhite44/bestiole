@@ -2,17 +2,18 @@ package fr.epsi.b3devc1.bestiole.repository;
 
 import fr.epsi.b3devc1.bestiole.entity.Species;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface SpeciesRepository extends JpaRepository<Species, Long> {
 
-    // 1️⃣ Retourne la première espèce dont le nom commun correspond au paramètre fourni
-    Optional<Species> findFirstByCommonName(String commonName);
+    @Query("SELECT s FROM Species s ORDER BY s.commonName ASC")
+    List<Species> findAllOrderedByCommonName();
 
-    // 2️⃣ Retourne une liste d'espèces dont le nom latin contient le paramètre fourni (ignorer la casse)
-    List<Species> findByLatinNameIgnoreCaseContaining(String keyword);
+    @Query("SELECT s FROM Species s WHERE s.commonName LIKE %:keyword%")
+    List<Species> findByCommonNameLike(@Param("keyword") String keyword);
 }

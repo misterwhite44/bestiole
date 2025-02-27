@@ -13,6 +13,11 @@ public class Animal {
     private String sex;
 
     @ManyToOne
+    @JoinColumn(name = "owner_id")  // 🔹 Ajout de la colonne de jointure
+    private Person owner;
+
+
+    @ManyToOne
     @JoinColumn(name = "species_id", nullable = false)
     private Species species;
 

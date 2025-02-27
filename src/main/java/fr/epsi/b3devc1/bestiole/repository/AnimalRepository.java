@@ -1,18 +1,19 @@
 package fr.epsi.b3devc1.bestiole.repository;
 
 import fr.epsi.b3devc1.bestiole.entity.Animal;
-import fr.epsi.b3devc1.bestiole.entity.Species;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
 
-    // 1️⃣ Retourne tous les animaux appartenant à la Species fournie en paramètre
-    List<Animal> findBySpecies(Species species);
+    @Query("SELECT COUNT(a) FROM Animal a WHERE a.sex = :sex")
+    long countBySex(@Param("sex") String sex);
 
-    // 2️⃣ Retourne tous les animaux dont la couleur fait partie de la liste fournie
-    List<Animal> findByColorIn(List<String> colors);
+    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Person p JOIN p.animals a WHERE a = :animal")
+    boolean existsByOwner(@Param("animal") Animal animal);
+
+
 }

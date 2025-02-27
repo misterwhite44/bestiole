@@ -1,7 +1,10 @@
 package fr.epsi.b3devc1.bestiole.repository;
 
 import fr.epsi.b3devc1.bestiole.entity.Person;
+import fr.epsi.b3devc1.bestiole.entity.Animal;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,9 +12,9 @@ import java.util.List;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
-    // 1️⃣ Retourne les personnes ayant le nom ou le prénom fourni en paramètre
-    List<Person> findByLastnameOrFirstname(String lastname, String firstname);
+    @Query("SELECT p FROM Person p WHERE p.age BETWEEN :ageMin AND :ageMax")
+    List<Person> findByAgeBetween(@Param("ageMin") int ageMin, @Param("ageMax") int ageMax);
 
-    // 2️⃣ Retourne toutes les personnes ayant un âge supérieur ou égal au paramètre fourni
-    List<Person> findByAgeGreaterThanEqual(int age);
+    @Query("SELECT p FROM Person p JOIN p.animals a WHERE a = :animal")
+    List<Person> findOwnersByAnimal(@Param("animal") Animal animal);
 }
