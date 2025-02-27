@@ -8,6 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AnimalRepository extends JpaRepository<Animal, Integer> {
-    List<Animal> findBySpecies(Species species); // Utilisation de l'objet Species
+public interface AnimalRepository extends JpaRepository<Animal, Long> {
+
+    // 1️⃣ Retourne tous les animaux appartenant à la Species fournie en paramètre
+    List<Animal> findBySpecies(Species species);
+
+    // 2️⃣ Retourne tous les animaux dont la couleur fait partie de la liste fournie
+    List<Animal> findByColorIn(List<String> colors);
 }
